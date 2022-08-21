@@ -91,8 +91,12 @@ LaunchedEffect(state.swipedDirection){
 
 Checkout the [app's MainActivity.kt](https://github.com/alexstyl/compose-tinder-card/blob/main/app/src/main/java/com/alexstyl/swipeablecard/MainActivity.kt) to see a fully functioning example of usage.
 
-## About
+## License
 
-Created by Alex Styl. [Follow me on Twitter](https://twitter.com/alexstyl) for updates.
+Apache 2.0. See the [LICENSE](https://github.com/alexstyl/compose-tinder-card/blob/main/LICENSE) file for details.
+
+## Author
+
+Made by Alex Styl. [Follow me on Twitter](https://twitter.com/alexstyl) for updates.
 
 Inspired by [Twypper](https://github.com/theapache64/twyper/) and [react-tinder-card](https://github.com/3DJakob/react-tinder-card)
