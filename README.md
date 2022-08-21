@@ -1,5 +1,7 @@
 # Compose Tinder Card
 
+![Banner image](/images/banner.png)
+
 A Jetpack Compose `Modifier` that enables Tinder-like card gestures.
 
 ## Demo
