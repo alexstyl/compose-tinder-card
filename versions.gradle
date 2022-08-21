@@ -11,7 +11,8 @@ ext {
     androidMinSdkVersion = 14
 
     kotlinVersion = '1.7.10'
-    gradlePluginVersion = '7.1.1'
+    gradlePluginVersion = '7.2.2'
     composeVersion = '1.2.1'
     composeCompilerVersion = '1.3.0'
+    gradleNexusVersion = '1.1.0'
 }

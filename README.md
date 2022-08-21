@@ -8,10 +8,20 @@ Click the play button to see the `Modifier.swipeableCard()` in action:
 
 https://user-images.githubusercontent.com/1665273/185766590-363044b6-8ff7-4528-95e2-b04cd70f0ad1.mp4
 
-## How to Install
+## How to Install via Gradle
 
-> **Note**
-> The library is not yet uploaded to mavenCentral(). Will do soon.
+Add the following code in your `app/build.gradle` file:
+
+```gradle
+repositories {
+...
+mavenCentral()
+}
+
+dependencies {
+    implementation 'com.alexstyl.swipeablecard:swipeablecard:0.0.1'
+}
+```
 
 ## How to use
 
