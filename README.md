@@ -91,6 +91,26 @@ LaunchedEffect(state.swipedDirection){
 
 Checkout the [app's MainActivity.kt](https://github.com/alexstyl/compose-tinder-card/blob/main/app/src/main/java/com/alexstyl/swipeablecard/MainActivity.kt) to see a fully functioning example of usage.
 
+## How to build the library locally
+
+Include the following snippet in your `local.gradle` file and do a Gradle Sync:
+```gradle
+sonatypeStagingProfileId=
+ossrhUsername=
+ossrhPassword=
+signing.keyId=
+signing.key=
+signing.password=
+```
+
+The above parameters are used for publishing the library and are not required for development.
+
+## Not accepting non-bug fix contributions
+
+Until the API is in stable state (1.0.0 release), I won't be accepting any contributions other than bug fixes.
+
+If you have an idea, question or feedback, [open a new issue](https://github.com/alexstyl/compose-tinder-card/issues/new).
+
 ## License
 
 Apache 2.0. See the [LICENSE](https://github.com/alexstyl/compose-tinder-card/blob/main/LICENSE) file for details.
