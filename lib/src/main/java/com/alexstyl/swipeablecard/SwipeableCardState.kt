@@ -12,8 +12,9 @@ import androidx.compose.ui.unit.dp
 
 
 enum class Direction {
-    Left, Right
+    Left, Right, UP,Down
 }
+
 
 @Composable
 fun rememberSwipeableCardState(): SwipeableCardState {
@@ -49,9 +50,12 @@ class SwipeableCardState(
 
     suspend fun swipe(direction: Direction, animationSpec: AnimationSpec<Offset> = tween(400)) {
         val endX = maxWidth * 1.5f
+        val topY = maxHeight * 1.5f
         when (direction) {
             Direction.Left -> offset.animateTo(offset.value.withX(-endX), animationSpec)
             Direction.Right -> offset.animateTo(offset.value.withX(endX), animationSpec)
+            Direction.UP -> offset.animateTo(offset.value.withY(-topY), animationSpec)
+            Direction.Down -> offset.animateTo(offset.value.withY(topY), animationSpec)
         }
         this.swipedDirection = direction
     }
@@ -63,4 +67,9 @@ class SwipeableCardState(
 
 private fun Offset.withX(x: Float): Offset {
     return Offset(x, this.y)
+}
+
+
+private fun Offset.withY(y: Float): Offset {
+    return Offset(this.x, y)
 }

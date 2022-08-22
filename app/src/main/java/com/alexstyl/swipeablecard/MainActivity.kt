@@ -43,12 +43,14 @@ class MainActivity : ComponentActivity() {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(Brush.verticalGradient(
-                            listOf(
-                                Color(0xfff68084),
-                                Color(0xffa6c0fe),
+                        .background(
+                            Brush.verticalGradient(
+                                listOf(
+                                    Color(0xfff68084),
+                                    Color(0xffa6c0fe),
+                                )
                             )
-                        ))
+                        )
                         .systemBarsPadding()
                 ) {
                     Box {
@@ -61,11 +63,13 @@ class MainActivity : ComponentActivity() {
                         Hint(hint)
 
                         val scope = rememberCoroutineScope()
-                        Box(Modifier
-                            .padding(24.dp)
-                            .fillMaxSize()
-                            .aspectRatio(1f)
-                            .align(Alignment.Center)) {
+                        Box(
+                            Modifier
+                                .padding(24.dp)
+                                .fillMaxSize()
+                                .aspectRatio(1f)
+                                .align(Alignment.Center)
+                        ) {
                             states.forEach { (matchProfile, state) ->
                                 if (state.swipedDirection == null) {
                                     ProfileCard(
@@ -93,10 +97,11 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                         }
-                        Row(Modifier
-                            .align(Alignment.BottomCenter)
-                            .padding(horizontal = 24.dp, vertical = 32.dp)
-                            .fillMaxWidth(),
+                        Row(
+                            Modifier
+                                .align(Alignment.BottomCenter)
+                                .padding(horizontal = 24.dp, vertical = 32.dp)
+                                .fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceEvenly
                         ) {
                             CircleButton(
@@ -144,8 +149,10 @@ class MainActivity : ComponentActivity() {
                 .border(2.dp, MaterialTheme.colors.primary, CircleShape),
             onClick = onClick
         ) {
-            Icon(icon, null,
-                tint = MaterialTheme.colors.onPrimary)
+            Icon(
+                icon, null,
+                tint = MaterialTheme.colors.onPrimary
+            )
         }
     }
 
@@ -156,17 +163,21 @@ class MainActivity : ComponentActivity() {
     ) {
         Card(modifier) {
             Box {
-                Image(contentScale = ContentScale.Crop,
+                Image(
+                    contentScale = ContentScale.Crop,
                     modifier = Modifier.fillMaxSize(),
                     painter = painterResource(matchProfile.drawableResId),
-                    contentDescription = null)
+                    contentDescription = null
+                )
                 Scrim(Modifier.align(Alignment.BottomCenter))
                 Column(Modifier.align(Alignment.BottomStart)) {
-                    Text(text = matchProfile.name,
+                    Text(
+                        text = matchProfile.name,
                         color = MaterialTheme.colors.onPrimary,
                         fontSize = 22.sp,
                         fontWeight = FontWeight.Medium,
-                        modifier = Modifier.padding(10.dp))
+                        modifier = Modifier.padding(10.dp)
+                    )
                 }
             }
         }
@@ -209,14 +220,18 @@ class MainActivity : ComponentActivity() {
         return when (direction) {
             Direction.Left -> "Left 👈"
             Direction.Right -> "Right 👉"
+            Direction.UP -> "UP "
+            Direction.Down -> "Down "
         }
     }
 }
 
 @Composable
 fun Scrim(modifier: Modifier = Modifier) {
-    Box(modifier
-        .background(Brush.verticalGradient(listOf(Color.Transparent, Color.Black)))
-        .height(180.dp)
-        .fillMaxWidth())
+    Box(
+        modifier
+            .background(Brush.verticalGradient(listOf(Color.Transparent, Color.Black)))
+            .height(180.dp)
+            .fillMaxWidth()
+    )
 }

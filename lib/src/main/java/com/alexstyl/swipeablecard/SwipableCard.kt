@@ -45,22 +45,28 @@ fun Modifier.swipableCard(
             },
             onDragEnd = {
                 when {
-                    abs(state.offset.targetValue.x) < state.maxWidth / 4 -> {
-                        launch {
-                            state.reset()
-                            onSwipeCancel()
-                        }
-                    }
-                    state.offset.targetValue.x > 0 -> {
+                    state.offset.targetValue.x > 0 && state.offset.targetValue.x > state.offset.targetValue.y -> {
                         launch {
                             state.swipe(Direction.Right)
                             onSwiped(Direction.Right)
                         }
                     }
-                    state.offset.targetValue.x < 0 -> {
+                    state.offset.targetValue.x < 0 && state.offset.targetValue.x < state.offset.targetValue.y -> {
                         launch {
                             state.swipe(Direction.Left)
                             onSwiped(Direction.Left)
+                        }
+                    }
+                    state.offset.targetValue.y < 0 && state.offset.targetValue.y < state.offset.targetValue.x -> {
+                        launch {
+                            state.swipe(Direction.UP)
+                            onSwiped(Direction.UP)
+                        }
+                    }
+                    state.offset.targetValue.y > 0 && state.offset.targetValue.y > state.offset.targetValue.x-> {
+                        launch {
+                            state.swipe(Direction.Down)
+                            onSwiped(Direction.Down)
                         }
                     }
                 }
