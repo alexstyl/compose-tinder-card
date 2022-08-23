@@ -21,7 +21,7 @@ mavenCentral()
 }
 
 dependencies {
-    implementation 'com.alexstyl.swipeablecard:swipeablecard:0.0.1'
+    implementation 'com.alexstyl.swipeablecard:swipeablecard:0.1.0'
 }
 ```
 
