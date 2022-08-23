@@ -73,6 +73,7 @@ class MainActivity : ComponentActivity() {
                                             .fillMaxSize()
                                             .swipableCard(
                                                 state = state,
+                                                blockedDirections = listOf(Direction.Down),
                                                 onSwiped = {
                                                     // swipes are handled by the LaunchedEffect
                                                     // so that we track button clicks & swipes

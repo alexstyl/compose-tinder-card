@@ -16,12 +16,14 @@ import kotlin.math.abs
  * @param state The current state of the swipeable card. Use [_root_ide_package_.com.alexstyl.swipeablecard.rememberSwipeableCardState()] to create.
  * @param onSwiped will be called once a swipe gesture is completed. The given [Direction] will indicate which side the gesture was performed on.
  * @param onSwipeCancel will be called when the gesture is stopped before reaching the minimum threshold to be treated as a full swipe
+ * @param blockedDirections the directions which will not trigger a swipe. By default only horizontal swipes are allowed.
  */
 @ExperimentalSwipeableCardApi
 fun Modifier.swipableCard(
     state: SwipeableCardState,
     onSwiped: (Direction) -> Unit,
     onSwipeCancel: () -> Unit = {},
+    blockedDirections: List<Direction> = listOf(Direction.Up, Direction.Down),
 ) = pointerInput(Unit) {
     coroutineScope {
         detectDragGestures(
@@ -44,34 +46,32 @@ fun Modifier.swipableCard(
                 }
             },
             onDragEnd = {
-                if (isOutOfBounds(state)) {
-                    launch {
+                launch {
+                    val coercedOffset = state.offset.targetValue
+                        .coerceIn(blockedDirections,
+                            maxHeight = state.maxHeight,
+                            maxWidth = state.maxWidth)
+
+                    if (hasNotTravelledEnough(state, coercedOffset)) {
                         state.reset()
                         onSwipeCancel()
-                    }
-                } else {
-                    val horizontalTravel = abs(state.offset.targetValue.x)
-                    val verticalTravel = abs(state.offset.targetValue.y)
-                    if (horizontalTravel > verticalTravel) {
-                        if (state.offset.targetValue.x > 0) {
-                            launch {
+                    } else {
+                        val horizontalTravel = abs(state.offset.targetValue.x)
+                        val verticalTravel = abs(state.offset.targetValue.y)
+
+                        if (horizontalTravel > verticalTravel) {
+                            if (state.offset.targetValue.x > 0) {
                                 state.swipe(Direction.Right)
                                 onSwiped(Direction.Right)
-                            }
-                        } else {
-                            launch {
+                            } else {
                                 state.swipe(Direction.Left)
                                 onSwiped(Direction.Left)
                             }
-                        }
-                    } else {
-                        if (state.offset.targetValue.y < 0) {
-                            launch {
+                        } else {
+                            if (state.offset.targetValue.y < 0) {
                                 state.swipe(Direction.Up)
                                 onSwiped(Direction.Up)
-                            }
-                        } else {
-                            launch {
+                            } else {
                                 state.swipe(Direction.Down)
                                 onSwiped(Direction.Down)
                             }
@@ -87,8 +87,43 @@ fun Modifier.swipableCard(
     rotationZ = (state.offset.value.x / 60).coerceIn(-40f, 40f),
 )
 
-private fun isOutOfBounds(state: SwipeableCardState): Boolean {
-    return abs(state.offset.targetValue.x) < state.maxWidth / 4 &&
-            abs(state.offset.targetValue.y) < state.maxHeight / 4
+private fun Offset.coerceIn(
+    blockedDirections: List<Direction>,
+    maxHeight: Float,
+    maxWidth: Float,
+): Offset {
+    return copy(
+        x = x.coerceIn(
+            if (blockedDirections.contains(Direction.Left)) {
+                0f
+            } else {
+                -maxWidth
+            },
+            if (blockedDirections.contains(Direction.Right)) {
+                0f
+            } else {
+                maxWidth
+            }
+        ),
+        y = y.coerceIn(if (blockedDirections.contains(Direction.Up)) {
+            0f
+        } else {
+            -maxHeight
+        },
+            if (blockedDirections.contains(Direction.Down)) {
+                0f
+            } else {
+                maxHeight
+            }
+        )
+    )
+}
+
+private fun hasNotTravelledEnough(
+    state: SwipeableCardState,
+    offset: Offset,
+): Boolean {
+    return abs(offset.x) < state.maxWidth / 4 &&
+            abs(offset.y) < state.maxHeight / 4
 }
 
