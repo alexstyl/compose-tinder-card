@@ -119,4 +119,4 @@ Apache 2.0. See the [LICENSE](https://github.com/alexstyl/compose-tinder-card/bl
 
 Made by Alex Styl. [Follow me on Twitter](https://twitter.com/alexstyl) for updates.
 
-Inspired by [Twypper](https://github.com/theapache64/twyper/) and [react-tinder-card](https://github.com/3DJakob/react-tinder-card)
+Inspired by [Twyper](https://github.com/theapache64/twyper/), [Tinder-Like](https://github.com/cyph3rcod3r/Tinder-Like) & [react-tinder-card](https://github.com/3DJakob/react-tinder-card)
