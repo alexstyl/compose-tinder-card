@@ -87,6 +87,32 @@ LaunchedEffect(state.swipedDirection){
 }
 ```
 
+## Can I swipe towards any direction?
+
+Yes. By default only horizontal swiping is allowed (left & right).
+
+To control which directions need to be blocked, pass the respective Direction to the `blockedDirections` parameter of the `Modifier`.
+
+```kotlin
+val state = rememberSwipeableCardState()
+
+Box(
+    modifier = Modifier
+        .swipableCard(
+            // prevent swiping downwards. 
+            blockedDirections = listOf(Direction.Down),
+            state = state,
+            onSwiped = { direction ->
+                // ...
+            },
+            onSwipeCancel = {
+                // ...
+            }
+        )
+) {
+  // contents ...
+}
+```
 ## Demo app included
 
 Checkout the [app's MainActivity.kt](https://github.com/alexstyl/compose-tinder-card/blob/main/app/src/main/java/com/alexstyl/swipeablecard/MainActivity.kt) to see a fully functioning example of usage.
