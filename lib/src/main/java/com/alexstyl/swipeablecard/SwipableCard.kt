@@ -81,11 +81,11 @@ fun Modifier.swipableCard(
             }
         )
     }
-}.graphicsLayer(
-    translationX = state.offset.value.x,
-    translationY = state.offset.value.y,
-    rotationZ = (state.offset.value.x / 60).coerceIn(-40f, 40f),
-)
+}.graphicsLayer {
+    translationX = state.offset.value.x
+    translationY = state.offset.value.y
+    rotationZ = (state.offset.value.x / 60).coerceIn(-40f, 40f)
+}
 
 private fun Offset.coerceIn(
     blockedDirections: List<Direction>,
