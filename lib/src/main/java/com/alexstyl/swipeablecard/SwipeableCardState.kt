@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 
 
 enum class Direction {
-    Left, Right
+    Left, Right, Up, Down
 }
 
 @Composable
@@ -33,7 +33,7 @@ class SwipeableCardState(
     internal val maxWidth: Float,
     internal val maxHeight: Float,
 ) {
-    val offset = Animatable(Offset(0f, 0f), Offset.VectorConverter)
+    val offset = Animatable(offset(0f, 0f), Offset.VectorConverter)
 
     /**
      * The [Direction] the card was swiped at.
@@ -44,23 +44,26 @@ class SwipeableCardState(
         private set
 
     internal suspend fun reset() {
-        offset.animateTo(Offset(0f, 0f), tween(400))
+        offset.animateTo(offset(0f, 0f), tween(400))
     }
 
     suspend fun swipe(direction: Direction, animationSpec: AnimationSpec<Offset> = tween(400)) {
         val endX = maxWidth * 1.5f
+        val endY = maxHeight
         when (direction) {
-            Direction.Left -> offset.animateTo(offset.value.withX(-endX), animationSpec)
-            Direction.Right -> offset.animateTo(offset.value.withX(endX), animationSpec)
+            Direction.Left -> offset.animateTo(offset(x = -endX), animationSpec)
+            Direction.Right -> offset.animateTo(offset(x = endX), animationSpec)
+            Direction.Up -> offset.animateTo(offset(y = -endY), animationSpec)
+            Direction.Down -> offset.animateTo(offset(y = endY), animationSpec)
         }
         this.swipedDirection = direction
     }
 
-    internal suspend fun drag(x: Float, y: Float) {
-        offset.animateTo(Offset(x, y))
+    private fun offset(x: Float = offset.value.x, y: Float = offset.value.y): Offset {
+        return Offset(x, y)
     }
-}
 
-private fun Offset.withX(x: Float): Offset {
-    return Offset(x, this.y)
+    internal suspend fun drag(x: Float, y: Float) {
+        offset.animateTo(offset(x, y))
+    }
 }
