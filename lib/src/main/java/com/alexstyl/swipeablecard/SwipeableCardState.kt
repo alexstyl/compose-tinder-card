@@ -43,8 +43,8 @@ class SwipeableCardState(
     var swipedDirection: Direction? by mutableStateOf(null)
         private set
 
-    internal suspend fun reset() {
-        offset.animateTo(offset(0f, 0f), tween(400))
+    suspend fun reset(animationSpec: AnimationSpec<Offset> = tween(400)) {
+        offset.animateTo(offset(0f, 0f), animationSpec)
     }
 
     suspend fun swipe(direction: Direction, animationSpec: AnimationSpec<Offset> = tween(400)) {
