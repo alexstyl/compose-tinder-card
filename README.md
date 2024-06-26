@@ -1,3 +1,7 @@
+# This repository is read-only
+
+I have been super busy with https://composables.com and I don't have time to update this repo. Feel free to fork this and create your own version of this library.
+
 # Compose Tinder Card
 
 ![Banner image](/images/banner.png)
